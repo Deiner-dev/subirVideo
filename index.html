@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player and Uploader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #6200ea;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #3700b3;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #video-player {
+            width: 100%;
+            height: 400px;
+            background: black;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="file"] {
+            margin: 10px 0;
+        }
+        input[type="submit"] {
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        input[type="submit"]:hover {
+            background-color: #3700b3;
+        }
+        .link-display {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sube tu Video</h1>
+    </header>
+    <nav>
+        <!-- <a href="#player">Player</a>
+        <a href="#uploader">Upload Video</a> -->
+    </nav>
+    <div class="container" id="player">
+        <h2>Comparte el video con tus amigos</h2>
+        <video id="video-player" controls>
+            <source src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="container" id="uploader">
+        <h2>Upload and Generate Link</h2>
+        <form id="upload-form">
+            <label for="video-upload">Select a video file:</label><br>
+            <input type="file" id="video-upload" accept="video/*" required><br>
+            <input type="submit" value="Upload Video">
+        </form>
+        <div class="link-display" id="generated-link" style="display: none;">
+            <p>Video link:</p>
+            <a id="video-link" href="" target="_blank"></a>
+        </div>
+    </div>
+
+    <script>
+        const uploadForm = document.getElementById('upload-form');
+        const videoPlayer = document.getElementById('video-player');
+        const generatedLink = document.getElementById('generated-link');
+        const videoLink = document.getElementById('video-link');
+
+        uploadForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const fileInput = document.getElementById('video-upload');
+            const file = fileInput.files[0];
+
+            if (file) {
+                const videoURL = URL.createObjectURL(file);
+                videoPlayer.src = videoURL;
+
+                videoLink.href = videoURL;
+                videoLink.textContent = videoURL;
+                generatedLink.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
